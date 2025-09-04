@@ -28,8 +28,8 @@
 
 ### From Dockerhub
 ```
-docker pull your-dockerhub-user/pg2sqs:latest
-docker run --rm -v $PWD/config.yaml:/app/config.yaml your-dockerhub-user/pg2sqs:latest
+docker pull alikpgwalk/pg2sqs:latest
+docker run --rm -v $PWD/config.yaml:/app/config.yaml alikpgwalk/pg2sqs:latest
 ```
 
 ## 🛠️ Configuration
