@@ -18,13 +18,7 @@
 
 ### From Binary
 
-1. Download from [website link].
-2. (Optional) Verify checksum.
-3. Make executable:  
-   ```bash
-   chmod +x pg2sqs
-   ./pg2sqs
-   ```
+**Not yet available**
 
 ### From Dockerhub
 ```
