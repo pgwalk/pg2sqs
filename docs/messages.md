@@ -73,6 +73,3 @@ and output would be e.g.:
 }
 ```
 
-⚠️ **CAUTION**
-REPLICA IDENTITY
-

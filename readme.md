@@ -1,16 +1,16 @@
 # 🚀 pg2sqs (BETA)
 
-**pg2sqs** is a lightweight service that streams PostgreSQL WAL (Write-Ahead Log) records to an AWS SQS queue. Ideal for change data capture (CDC), audit pipelines, and replication into event-driven architectures.
+**pg2sqs** is a lightweight PostgreSQL-to-SQS streamer that captures row-level changes (insert, update, delete) from WAL in real time, enabling event-driven pipelines on AWS with reliable at-least-once delivery.
 
 ---
 
 ## 📦 Features
 
-- Connects to PostgreSQL using logical replication
-- Sends changes to AWS SQS queues
-- Run via Docker or Linux binary
-- Fault-tolerant WAL offset tracking
-- Configurable via YAML or environment variables
+- **Real-time event streaming** — turn PostgreSQL into the backbone of event-driven pipelines.
+- **Seamless AWS integration** — publishes changes directly to SQS for easy fan-out to Lambdas, microservices, analytics.
+- **Reliable delivery** — at-least-once guarantees with deduplication logic that prevents duplicate row changes while running.
+- **Row-level granularity** — each database insert, update, or delete is captured as a standalone message.
+- **Easy deployment** – available as a binary or Docker container.
 
 ---
 
