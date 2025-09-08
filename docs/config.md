@@ -226,7 +226,6 @@ postgres:
   receiveTimeout: "30s"
 
 sqs:
-  baseEndpoint: "https://sqs.region.amazonaws.com"
   commitTimeColumn: "commit_time"
 
 tables:
