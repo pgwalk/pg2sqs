@@ -23,96 +23,96 @@ All configuration options can be set using environment variables. The naming con
 
 ## Main Configuration
 
-### `debug`, `<product>_DEBUG`
+### `debug`, `PG2SQS_DEBUG`
   - Enable debug mode (true/false)
 
-### `flushInterval`, `<product>_FLUSHINTERVAL`
+### `flushInterval`, `PG2SQS_FLUSHINTERVAL`
   - Interval for flushing data to the downstream. Default is `500ms`. When a value does not have time units, the milliseconds are assumed. See [Time units](#time-units)
 
-### `flushWorkers`, `<product>_FLUSHWORKERS`
+### `flushWorkers`, `PG2SQS_FLUSHWORKERS`
   - Number of parallel workers used to send downstream requests. The default value is the container-aware number of CPU.
 
-### `maxWriteQueueSize`, `<product>_MAXWRITEQUEUESIZE`
+### `maxWriteQueueSize`, `PG2SQS_MAXWRITEQUEUESIZE`
   - Controls the maximum length of the downstream write queue, which is unlimited by default.
     This setting serves two primary purposes:
     1. Prevents overwhelming the downstream system
     2. Controls memory usage by limiting the number of in-memory messages awaiting acknowledgment
   - The `maxWriteQueueSize` setting limits the number of pending messages. When this limit is reached, the application will continue processing the current transaction. After that, the app won't generate new messages until the queue size drops below the limit. This ensures that transactions remain atomic while preventing memory overflow.
 
-### `writeTimeout`, `<product>_WRITETIMEOUT` 
+### `writeTimeout`, `PG2SQS_WRITETIMEOUT` 
   - Downstream wait timeout. Defines how much time to wait until a downstream request succeeded. See [Time units](#time-units).
     Without the time units, seconds are assumed. Default is 10 seconds.
 
-### `shutdownTimeout`, `<product>_SHUTDOWNTIMEOUT`
+### `shutdownTimeout`, `PG2SQS_SHUTDOWNTIMEOUT`
   - Timeout for graceful shutdown. See [Time units](#time-units).
 
-### `statsInterval`, `<product>_STATSINTERVAL`
+### `statsInterval`, `PG2SQS_STATSINTERVAL`
   - Interval of printing application statistics. See [Time units](#time-units).
 
 ### Retry policy, `retryPolicy`
   Retry policy for the failed messages.
-  - #### `maxRetries`, `<product>_RETRYPOLICY_MAXRETRIES`
+  - #### `maxRetries`, `PG2SQS_RETRYPOLICY_MAXRETRIES`
     - Maximum number of retry attempts for failed operations. 
     - Should be >= 1.
     - Defines how many times an operation will be retried before giving up.
-  - #### `maxConnectionRetries`, `<product>_RETRYPOLICY_MAXCONNECTIONRETRIES`
+  - #### `maxConnectionRetries`, `PG2SQS_RETRYPOLICY_MAXCONNECTIONRETRIES`
     - Maximum number of connection retry attempts.
     - Should be >= 0.
     - Specifies the maximum number of times to retry establishing a connection. A value of 0 means connection retries will
       be attempted forever.
     - When `maxConnectionRetries` value is greater than 0, the application will terminate after the specified number of failed
       connection attempts.
-  - #### `initialBackoff`, `<product>_RETRYPOLICY_INITIALBACKOFF`
+  - #### `initialBackoff`, `PG2SQS_RETRYPOLICY_INITIALBACKOFF`
     - Initial wait time between retry attempts.
     - Should be > 0.
     - The base duration to wait before the first retry attempt. Subsequent retries may be modified by the multiplier and jitter values.
-  - #### `multiplier`, `<product>_RETRYPOLICY_MULTIPLIER`
+  - #### `multiplier`, `PG2SQS_RETRYPOLICY_MULTIPLIER`
     - Backoff multiplier between retry attempts. 
     - Should be >= 1. 
     - Multiplier applied to the backoff duration for each subsequent retry. A value of 1.0 means the backoff duration remains constant between retries.
-  - #### `jitter`, `<product>_RETRYPOLICY_JITTER`
+  - #### `jitter`, `PG2SQS_RETRYPOLICY_JITTER`
     - Random variation in retry timing.
     - Should be within [0.0, 1.0] range.
     - Adds randomness to the backoff duration to prevent thundering herd problems. A value of 0.4 means the actual backoff time will be randomly adjusted by up to ±40%.
-  - #### `maxBackoff`, `<product>_RETRYPOLICY_MAXBACKOFF`
+  - #### `maxBackoff`, `PG2SQS_RETRYPOLICY_MAXBACKOFF`
     - Maximum backoff duration.
     - Should be > 0.
     - The upper limit for the backoff duration, regardless of the multiplier and number of retries. Ensures that retry attempts don't wait longer than this specified time.
  
 ### Postgres Configuration, `postgres`
   - #### Connection settings, `conn`
-    - `host`, `<product>_POSTGRES_CONN_HOST`
+    - `host`, `PG2SQS_POSTGRES_CONN_HOST`
       - Host. Can be a comma-separated list of the hosts. The application connects to the active primary server. 
-    - `port`, `<product>_POSTGRES_CONN_PORT`
+    - `port`, `PG2SQS_POSTGRES_CONN_PORT`
       - Port.
-    - `database`, `<product>_POSTGRES_CONN_DATABASE` 
+    - `database`, `PG2SQS_POSTGRES_CONN_DATABASE` 
       - Database name.
-    - `user`, `<product>_POSTGRES_CONN_USER` 
+    - `user`, `PG2SQS_POSTGRES_CONN_USER` 
       - Database user.
-    - `password`, `<product>_POSTGRES_CONN_PASSWORD`
+    - `password`, `PG2SQS_POSTGRES_CONN_PASSWORD`
       - Database password.
   - #### TLS settings, `tls`
-    - `cert`, `<product>_POSTGRES_CONN_TLS_CERT`
+    - `cert`, `PG2SQS_POSTGRES_CONN_TLS_CERT`
       - TLS certificate path.
-    - `key`, `<product>_POSTGRES_CONN_TLS_KEY` 
+    - `key`, `PG2SQS_POSTGRES_CONN_TLS_KEY` 
       - TLS key path.
-    - `rootCert`, `<product>_POSTGRES_CONN_TLS_ROOTCERT`
+    - `rootCert`, `PG2SQS_POSTGRES_CONN_TLS_ROOTCERT`
       - TLS root certificate path.
   - #### Replication settings, `repl`
-    - `pub`, `<product>_POSTGRES_REPL_PUB`
+    - `pub`, `PG2SQS_POSTGRES_REPL_PUB`
       - Publication name.
-    - `slot`, `<product>_POSTGRES_REPL_SLOT` 
+    - `slot`, `PG2SQS_POSTGRES_REPL_SLOT` 
       - Replication slot name. See [Slot setup](#slot-setup) on how to configure slot in Postgres.
-  - #### `numericMode`, `<product>_POSTGRES_NUMERICMODE` 
+  - #### `numericMode`, `PG2SQS_POSTGRES_NUMERICMODE` 
     - Numeric mode ("float" or "string"). See [Numeric modes](#numeric-modes)
-  - #### `standByTimeout`, `<product>_POSTGRES_STANDBYTIMEOUT` 
+  - #### `standByTimeout`, `PG2SQS_POSTGRES_STANDBYTIMEOUT` 
     - Standby timeout. See [Time units](#time-units).
-  - #### `receiveTimeout`, `<product>_POSTGRES_RECEIVETIMEOUT` 
+  - #### `receiveTimeout`, `PG2SQS_POSTGRES_RECEIVETIMEOUT` 
     - Receive timeout. See [Time units](#time-units).
 
 ### SQS Configuration, `sqs`
 
-  - #### `commitTimeColumn`, `<product>_SQS_COMMITTIMECOLUMN`
+  - #### `commitTimeColumn`, `PG2SQS_SQS_COMMITTIMECOLUMN`
     - The app can put transaction commit time as an additional field in the generated message. This setting specifies the name of the field in JSON.
       Only works when `track_commit_timestamp` setting is turned on (see [Postgres docs](https://www.postgresql.org/docs/current/functions-info.html#FUNCTIONS-INFO-COMMIT-TIMESTAMP)). You can enable this setting using one of the following methods:
       - `ALTER SYSTEM SET track_commit_timestamp = ON;`
@@ -135,19 +135,19 @@ AWS_ENDPOINT_URL_SQS=<e.g. https://sqs.us-east-1.amazonaws.com>
 ```
 
 ### Table Configuration, `tables`
-  - #### `<schema.table>`, `<product>_T_<#num>_NAME`
+  - #### `<schema.table>`, `PG2SQS_T_<#num>_NAME`
     - Name of the table to read changes from. Can contain schema. When no schema is set then `public` schema is assumed.
     - `<#num>` is the index of the table. Start with zero and increment by 1 for each new table. See examples below. 
-    - #### `columns`, `<product>_T_<#num>_COLUMNS`
+    - #### `columns`, `PG2SQS_T_<#num>_COLUMNS`
       - Comma-separated list of columns for which the application reads changes. Set `all` for all columns. 
       - Postgres version >=15 supports publications with a subset of a tables' columns. And it's possible to specify individual columns in the publication.
       - For PG version >= 12 and < 15 application reads all columns from the Postgres. Application extracts required columns in memory. 
       - ⚠️ **Primary key column(s) must be included**. 
       - ⚠️ When adding new columns with default values to a table, all existing rows will receive the default value in the database. However, these changes won't be captured by logical replication.
     - #### Queue config, `queue`
-      - ##### `name`, `<product>_T_<#num>_Q_NAME`
+      - ##### `name`, `PG2SQS_T_<#num>_Q_NAME`
         - Name of the SQS queue
-      - #### `groupID`, `<product>_T_<#num>_Q_GROUPID`
+      - #### `groupID`, `PG2SQS_T_<#num>_Q_GROUPID`
         - GroupID macros. Only for FIFO queues. See [Macroses](#macroses)
       - #### update/insert/delete specific settings
         - It is possible to configure the application to send messages to a specific queue depending on the DML operation (INSERT/UPDATE/DELETE).
@@ -175,31 +175,31 @@ tables:
 ```
 ```bash
 #same with ENV variables
-<product>_T_0_NAME=public.customers
-<product>_T_0_COLUMNS=all
-<product>_T_0_Q_NAME=customers.fifo
-<product>_T_0_Q_GROUPID=${%table%}${id} 
-<product>_T_0_Q_UPDATE_NAME=customerUpdated.fifo 
-<product>_T_0_Q_UPDATE_GROUPID=${%table%}${id} # if required 
-<product>_T_0_Q_INSERT_NAME=customerCreated.fifo
-<product>_T_0_Q_INSERT_GROUPID=${%table%}${id} # if required
-<product>_T_0_Q_DELETE_NAME=customerDeleted.fifo
-<product>_T_0_Q_DELETE_GROUPID=${%table%}${id} # if required
+PG2SQS_T_0_NAME=public.customers
+PG2SQS_T_0_COLUMNS=all
+PG2SQS_T_0_Q_NAME=customers.fifo
+PG2SQS_T_0_Q_GROUPID=${%table%}${id} 
+PG2SQS_T_0_Q_UPDATE_NAME=customerUpdated.fifo 
+PG2SQS_T_0_Q_UPDATE_GROUPID=${%table%}${id} # if required 
+PG2SQS_T_0_Q_INSERT_NAME=customerCreated.fifo
+PG2SQS_T_0_Q_INSERT_GROUPID=${%table%}${id} # if required
+PG2SQS_T_0_Q_DELETE_NAME=customerDeleted.fifo
+PG2SQS_T_0_Q_DELETE_GROUPID=${%table%}${id} # if required
 
-<product>_T_1_NAME=public.orders
-<product>_T_1_COLUMNS=all
-<product>_T_1_Q_NAME=orders
+PG2SQS_T_1_NAME=public.orders
+PG2SQS_T_1_COLUMNS=all
+PG2SQS_T_1_Q_NAME=orders
 ```
 ## License
 PG2SQS is a paid product. A valid license is required to use the product. 
 Until November 30th, 2025 the product is in beta and everyone can use the app for free.
-Set the license key to the ENV variable `PGWALK_LIC_<product>`:
+Set the license key to the ENV variable `PGWALK_LIC_PG2SQS`:
 ```bash
-  PGWALK_LIC_<product>=<license key>
+  PGWALK_LIC_PG2SQS=<license key>
 ```
-Or save the key to a file and put the file path into the `PGWALK_LICFILE_<product>` ENV var:
+Or save the key to a file and put the file path into the `PGWALK_LICFILE_PG2SQS` ENV var:
 ```bash
-  PGWALK_LICFILE_<product>=/path/to/beta/key.pg2sqslic
+  PGWALK_LICFILE_PG2SQS=/path/to/beta/key.pg2sqslic
 ```
 App won't start without a valid license key.
 
@@ -370,7 +370,7 @@ Set the mode using either:
   ```
 - Environment variable:
   ```bash
-  <product>_POSTGRES_NUMERICMODE=string  # or float
+  PG2SQS_POSTGRES_NUMERICMODE=string  # or float
   ```
 
 ### Special Numeric Values Handling
