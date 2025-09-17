@@ -18,7 +18,7 @@
 
 ### From Binary
 
-**Not yet available**
+Get binary at https://www.pgwalk.com/pg2sqs/
 
 ### From Dockerhub
 ```
@@ -58,6 +58,6 @@ You are welcome to use the software for evaluation during the beta. However, the
 - 🛠 **No warranty or SLA**  
   This beta is provided "as is", without warranties or guarantees of performance.
 
-We reserve the right to change licensing terms after the beta period. Stay updated by checking [our website](https://pgwalk.com/pg2sqs.html) or subscribing to updates.
+We reserve the right to change licensing terms after the beta period. Stay updated by checking [our website](https://www.pgwalk.com/pg2sqs) or subscribing to updates.
 
 For questions about licensing or commercial use, please contact us at [pg2sqs@pgwalk.com](mailto:pg2sqs@pgwalk.com).
