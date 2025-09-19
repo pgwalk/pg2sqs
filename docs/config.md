@@ -220,7 +220,6 @@ postgres:
   repl:
     slot: "repl_slot"
     pub: "repl_pub"
-    owner: "app"
   numericMode: "float"
   standByTimeout: "30s"
   receiveTimeout: "30s"
