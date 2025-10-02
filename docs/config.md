@@ -192,10 +192,11 @@ PG2SQS_T_1_Q_NAME=orders
 ```
 ## License
 PG2SQS is a paid product. A valid license is required to use the product. 
-Until November 30th, 2025 the product is in beta and everyone can use the app for free.
+Until January 31th, 2026 the product is in beta and everyone can use the app for free.
 Set the license key to the ENV variable `PGWALK_LIC_PG2SQS`:
 ```bash
   PGWALK_LIC_PG2SQS=<license key>
+  PGWALK_LIC_PG2SQS=CzluOrIpH440IyK0MOPNOoOjOdSsqBxzp9qW9V6H8C6YDdDN4PWyd3zIBTMS7lqJtYa6Lo10jnDPJ7fHiUzuMa2ArLDaWuoqwvyhb14SosDNVDsMOxUA5hb9w4Hv3DGsAheFi9O3FhwkTepGMqeK2BwmxFGtgUwdhYVG9TVgGkTmTHmIW2btK5ft6Jmjy5Np
 ```
 Or save the key to a file and put the file path into the `PGWALK_LICFILE_PG2SQS` ENV var:
 ```bash

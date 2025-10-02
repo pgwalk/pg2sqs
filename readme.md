@@ -40,15 +40,15 @@ See [Messages](docs/messages.md) for more details.
 
 ## 📄 License
 
-**pg2sqs is currently free to use during the beta period, which runs until November 30th, 2025.**
+**pg2sqs is currently free to use during the beta period, which runs until January 31th, 2026.**
 
 You are welcome to use the software for evaluation during the beta. However, the following terms apply:
 
-- 📅 **Beta period ends on November 30th, 2025**  
+- 📅 **Beta period ends on January 31th, 2026**  
   After this date, usage might require a valid paid license.
 - Beta period license key:
 ```
-1foW3IIh3xHAOSHKJmOJSFiQ53QCZZks3fxWMycRXFLHbsweTq2ikqyiymaSPwTVDCMMcgf1v7mTJaikIzERrryUbt7CA0Eypy76cYmEmT81A9kYmS5qN6J1pyTSe6StIKxXhiqheHRwphp5vJ3uWEbZcZXLNWuyUoWAYIpMzbwmyChTqLgViYbtCXbegQzuWR3zdxLk7
+CzluOrIpH440IyK0MOPNOoOjOdSsqBxzp9qW9V6H8C6YDdDN4PWyd3zIBTMS7lqJtYa6Lo10jnDPJ7fHiUzuMa2ArLDaWuoqwvyhb14SosDNVDsMOxUA5hb9w4Hv3DGsAheFi9O3FhwkTepGMqeK2BwmxFGtgUwdhYVG9TVgGkTmTHmIW2btK5ft6Jmjy5Np
 ```
 
 - See [Configuration/License](docs/config.md#license) on how to configure the license.
