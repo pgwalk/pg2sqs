@@ -50,7 +50,7 @@ All configuration options can be set using environment variables. The naming con
   - Interval of printing application statistics. See [Time units](#time-units).
 
 ### Retry policy, `retryPolicy`
-  Retry policy for the failed messages.
+  Retry policy for the failed messages. Default is no-retry.
   - #### `maxRetries`, `PG2SQS_RETRYPOLICY_MAXRETRIES`
     - Maximum number of retry attempts for failed operations. 
     - Should be >= 1.
@@ -246,7 +246,6 @@ tables:
           url: "https://sqs.region.amazonaws.com/123456789012/users-delete"
 
 flushInterval: "500ms"
-flushQueueDepth: 32
 flushWorkers: 4
 statsInterval: "1m"
 maxWriteQueueSize: 10000

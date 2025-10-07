@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: pg2sqs-postgres
+    command: ["postgres", "-c", "wal_level=logical", "-c", "max_wal_senders=10", "-c", "max_replication_slots=5"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pg2sqspassword
+      POSTGRES_DB: postgres
+    volumes:
+      - ./sql/01_table_pub.sql:/docker-entrypoint-initdb.d/01_table_pub.sql
+      - ./sql/02_slot.sql:/docker-entrypoint-initdb.d/02_slot.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
+    networks:
+      - pg2sqs-net
+
+  pg2sqs:
+    image: alikpgwalk/pg2sqs:latest
+    container_name: pg2sqs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PG2SQS_POSTGRES_STANDBYTIMEOUT: 35s
+      PG2SQS_POSTGRES_RECEIVETIMEOUT: 35s
+      PG2SQS_POSTGRES_CONN_DATABASE: postgres
+      PG2SQS_POSTGRES_CONN_HOST: pg2sqs-postgres
+      PG2SQS_POSTGRES_CONN_PORT: 5432
+      PG2SQS_POSTGRES_CONN_USER: postgres
+      PG2SQS_POSTGRES_CONN_PASSWORD: pg2sqspassword
+      PG2SQS_POSTGRES_REPL_PUB: users_pub
+      PG2SQS_POSTGRES_REPL_SLOT: users_slot
+      PG2SQS_FLUSHINTERVAL: 1s
+      PG2SQS_FLUSHWORKERS: 5
+      PG2SQS_MAXWRITEQUEUESIZE: 10000
+      PG2SQS_WRITETIMEOUT: 10s
+      PG2SQS_SHUTDOWNTIMEOUT: 20s
+      PG2SQS_STATSINTERVAL: 30s
+      PG2SQS_RETRYPOLICY_MAXRETRIES: 5
+      PG2SQS_RETRYPOLICY_MAXCONNECTIONRETRIES: 0
+      PG2SQS_RETRYPOLICY_INITIALBACKOFF: 15s
+      PG2SQS_RETRYPOLICY_MULTIPLIER: 1
+      PG2SQS_RETRYPOLICY_JITTER: 0.4
+      PG2SQS_RETRYPOLICY_MAXBACKOFF: 120s
+      PG2SQS_T_0_NAME: public.users
+      PG2SQS_T_0_COLUMNS: all
+      PG2SQS_T_0_Q_NAME: users.fifo
+      PG2SQS_T_0_Q_GROUPID: '$${%table%}$${id}'
+      PGWALK_LIC_PG2SQS: CzluOrIpH440IyK0MOPNOoOjOdSsqBxzp9qW9V6H8C6YDdDN4PWyd3zIBTMS7lqJtYa6Lo10jnDPJ7fHiUzuMa2ArLDaWuoqwvyhb14SosDNVDsMOxUA5hb9w4Hv3DGsAheFi9O3FhwkTepGMqeK2BwmxFGtgUwdhYVG9TVgGkTmTHmIW2btK5ft6Jmjy5Np
+      AWS_REGION: <AWS REGION e.g. us-east-1>
+      AWS_ENDPOINT_URL_SQS: <AWS SQS Endpoint url e.g. https://sqs.us-east-1.amazonaws.com>
+      AWS_ACCESS_KEY_ID: <AWS ACCESS KEY ID> 
+      AWS_SECRET_ACCESS_KEY: <AWS SECRET>
+    networks:
+      - pg2sqs-net
+
+networks:
+  pg2sqs-net:
+    driver: bridge
